@@ -53,7 +53,7 @@ class Ball {
         //ball hits the bar, yay!
         if (this.y > yLimitBottom - this.r 
             && this.x + this.r > xBar 
-            && this.x + this.r < xBar + widthBar){
+            && this.x - this.r < xBar + widthBar){
                 this.speedY *= -1
                 this.checkScore()
         }
