@@ -2,7 +2,6 @@
 // — Account for screensize (speed mostly)
 // — Implement side collision on bricks
 // — Debug collisions in general ;-)
-// — Bug on right side of paddle...
 // — Add some winning mechanic when all bricks are cleared.
 
 //game on?
@@ -24,7 +23,7 @@ let yLimitTop = 0
 let yLimitBottom
 
 //bricks
-let brickRows = 5
+let brickRows = 3
 let brickCols = 9
 let theBricks = []
 let brickHeight = 10
@@ -32,8 +31,8 @@ let brickMax = brickRows * brickHeight
 
 //ball parameters
 let xBall
-let yBall = brickMax + 20
-let sizeBall = 30
+let yBall = brickMax + 20 //starting position of ball
+let sizeBall = 10
 let speedX = 2
 let speedY = 7
 

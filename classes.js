@@ -1,19 +1,19 @@
 class Brick {
     constructor(posX, posY, tW, tH, color) {
-        this.x = posX
-        this.y = posY
+        this.minX = posX
+        this.minY = posY
         this.w = tW
         this.h = tH
+        this.maxX = this.minX + this.w
+        this.maxY = this.minY + this.h
         this.col = {r: color.r, g: color.g, b: color.b}
-        this.limitX = this.x + this.w
-        this.limitY = this.y + this.h
     }
 
     drawBrick() {
         push()
         stroke(255)
         fill(this.col.r, this.col.g, this.col.b, 255)
-        rect(this.x,this.y,this.w,this.h)
+        rect(this.minX,this.minY,this.w,this.h)
         pop()
     }
 }
@@ -22,8 +22,10 @@ class Ball {
     constructor(posX,posY,d,speedX,speedY) {
         this.minX = posX
         this.minY = posY
+        this.maxX = this.minX + d
+        this.maxY = this.minY + d
         this.d = d
-        this.r = d/2
+        this.r = this.d/2
         this.speedX = speedX
         this.speedY = speedY
     }
@@ -40,9 +42,12 @@ class Ball {
         //ball hits brick
         for (let b = 0; b < theBricks.length; b++) {
             let curBrick = theBricks[b]
-            if (this.minY < curBrick.y + curBrick.h + this.r
-                && this.minX > curBrick.x
-                && this.minX < curBrick.limitX) {
+            // hits at bottom
+
+            // something's wrong here...
+            if (this.minY < curBrick.maxY
+                && this.minX > curBrick.minX - this.r
+                && this.maxX < curBrick.maxX + this.r) {
                     this.speedY *= -1
                     console.log('hit a brick on bottom')
                     //remove this brick from array
@@ -81,7 +86,7 @@ class Ball {
                 yLimitTop += yStep
                 //change yPos of each brick
                 for (let b = 0; b < theBricks.length; b++) {
-                    theBricks[b].y += yStep
+                    theBricks[b].minY += yStep
                 }
             }
         }

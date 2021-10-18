@@ -33,6 +33,3 @@ function drawBar() {
     fill(255)
     rect(xBar, windowHeight - heightBar, widthBar, heightBar)
 }
-
-function drawBall() {
-}
