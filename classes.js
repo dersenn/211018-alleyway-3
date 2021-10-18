@@ -18,11 +18,10 @@ class Brick {
     }
 }
 
-
 class Ball {
     constructor(posX,posY,d,speedX,speedY) {
-        this.x = posX
-        this.y = posY
+        this.minX = posX
+        this.minY = posY
         this.d = d
         this.r = d/2
         this.speedX = speedX
@@ -31,37 +30,37 @@ class Ball {
 
     checkPosition() {
         //ball hits left/right wall
-        if (this.x > windowWidth - this.r || this.x < this.r ){
+        if (this.minX > windowWidth - this.r || this.minX < this.r ){
             this.speedX *= -1
         }
         //ball hits top wall
-        if (this.y < yLimitTop + this.r ){
+        if (this.minY < yLimitTop + this.r ){
             this.speedY *= -1
         }
         //ball hits brick
         for (let b = 0; b < theBricks.length; b++) {
             let curBrick = theBricks[b]
-            if (this.y < curBrick.y + curBrick.h + this.r
-                && this.x > curBrick.x
-                && this.x < curBrick.limitX) {
+            if (this.minY < curBrick.y + curBrick.h + this.r
+                && this.minX > curBrick.x
+                && this.minX < curBrick.limitX) {
                     this.speedY *= -1
-                    console.log('hit a brick')
+                    console.log('hit a brick on bottom')
                     //remove this brick from array
                     theBricks.splice(b, 1)
             }
         }
-        //ball hits the bar, yay!
-        if (this.y > yLimitBottom - this.r 
-            && this.x + this.r > xBar 
-            && this.x - this.r < xBar + widthBar){
+        //ball hits the paddle, yay!
+        if (this.minY > yLimitBottom - this.r 
+            && this.minX + this.r > xBar 
+            && this.minX - this.r < xBar + widthBar){
                 this.speedY *= -1
                 this.checkScore()
         }
         //fail!
-        if (this.y > windowHeight - this.r){
+        if (this.minY > windowHeight - this.r){
             this.speedY = 0
             this.speedX = 0
-            this.y = windowHeight - this.r
+            this.minY = windowHeight - this.r
             //Game Over
             gameOn = false
         }
@@ -89,11 +88,11 @@ class Ball {
     }
 
     moveBall() {
-        this.x += this.speedX
-        this.y += this.speedY
+        this.minX += this.speedX
+        this.minY += this.speedY
     }
 
     drawBall() {
-        ellipse(this.x,this.y,this.d)
+        ellipse(this.minX,this.minY,this.d)
     }
 }
