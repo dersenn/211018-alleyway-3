@@ -43,7 +43,6 @@ class Ball {
         for (let b = 0; b < theBricks.length; b++) {
             let curBrick = theBricks[b]
             // hits at bottom
-
             // something's wrong here...
             if (this.minY < curBrick.maxY
                 && this.minX > curBrick.minX - this.r
